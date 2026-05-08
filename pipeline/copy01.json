@@ -51,7 +51,8 @@
 						"referenceName": "ds_SrcFolder_CSV_param",
 						"type": "DatasetReference",
 						"parameters": {
-							"pFileName": "@{pipeline().parameters.input_psv_file}"
+							"pFileName": "@{pipeline().parameters.input_psv_file}",
+							"pContainer": "csv"
 						}
 					}
 				],
@@ -69,7 +70,8 @@
 		],
 		"parameters": {
 			"input_psv_file": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "lnd.derm.psv"
 			},
 			"sinkTableName": {
 				"type": "String",
