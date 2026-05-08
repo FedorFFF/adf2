@@ -2,7 +2,7 @@
 	"name": "Db_Cefa_Fabric",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"description": "Db_Cefa_Fabric",
+		"description": "Db_Cefa_Fabric 01",
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
