@@ -48,8 +48,8 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"pFileName": "@{pipeline().parameters.input_psv_file}",
-							"pDirectory": "''",
-							"pContainer": "csv"
+							"pDirectory": "@{pipeline().parameters.pDirectory}",
+							"pContainer": "@{pipeline().parameters.pContainer}"
 						}
 					}
 				],
@@ -77,6 +77,14 @@
 			"sinkSchema": {
 				"type": "String",
 				"defaultValue": "lnd"
+			},
+			"pDirectory": {
+				"type": "string",
+				"defaultValue": "''"
+			},
+			"pContainer": {
+				"type": "string",
+				"defaultValue": "csv1"
 			}
 		},
 		"annotations": [],
