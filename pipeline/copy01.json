@@ -19,11 +19,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": false,
-							"wildcardFileName": {
-								"value": "@{pipeline().parameters.input_psv_file}",
-								"type": "Expression"
-							}
+							"recursive": false
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
