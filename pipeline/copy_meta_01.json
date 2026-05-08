@@ -1,0 +1,178 @@
+{
+	"name": "copy_meta_01",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Files",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "GetMetadataDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"SourceContainer": {
+								"value": "@pipeline().parameters.SourceContainer",
+								"type": "Expression"
+							},
+							"SourceDirectory": {
+								"value": "@pipeline().parameters.SourceDirectory",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEachFile",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Files').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "GetTargetTable",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "SELECT TOP 1 TargetSchema, TargetTable \nFROM srv.ImportConfig \nWHERE '@{item().name}' LIKE REPLACE(SourceMask, '*', '%') \n  AND IsActive = 1\n",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "DS_az_db_test",
+									"type": "DatasetReference",
+									"parameters": {
+										"sinkTableName": "ImportConfig",
+										"sinkSchema": "srv"
+									}
+								},
+								"firstRowOnly": true
+							}
+						},
+						{
+							"name": "CopyFiles",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "GetTargetTable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDS_psv",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": "@item().name",
+										"SourceContainer": "@pipeline().parameters.SourceContainer",
+										"SourceDirectory": "@pipeline().parameters.SourceDirectory"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_az_db_test",
+									"type": "DatasetReference",
+									"parameters": {
+										"sinkTableName": "@activity('GetTargetTable').output.firstRow.TargetTable",
+										"sinkSchema": "@activity('GetTargetTable').output.firstRow.TargetSchema"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"SourceContainer": {
+				"type": "string",
+				"defaultValue": "riga"
+			},
+			"SourceDirectory": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-06T12:07:50Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

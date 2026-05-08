@@ -1,0 +1,25 @@
+{
+	"name": "Az_db_test_admin",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "fadmin user",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "de-fiodarhulin-sql.database.windows.net",
+			"database": "db-test",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "fadmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_LS_01",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "fadmin-de-fiodarhulin-sql-password"
+			}
+		}
+	}
+}

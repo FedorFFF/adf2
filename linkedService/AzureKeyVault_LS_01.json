@@ -1,0 +1,17 @@
+{
+	"name": "AzureKeyVault_LS_01",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"prm_KV_URL": {
+				"type": "string",
+				"defaultValue": "https://KeyVault-Fhulin-02.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "@{linkedService().prm_KV_URL}"
+		}
+	}
+}

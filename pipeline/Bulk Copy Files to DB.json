@@ -1,0 +1,161 @@
+{
+	"name": "Bulk Copy Files to DB",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get_psv_Files",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "GetMetadataDS_psv",
+						"type": "DatasetReference",
+						"parameters": {
+							"SourceContainer": "@pipeline().parameters.SourceContainer",
+							"SourceDirectory": "@pipeline().parameters.SourceDirectory"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEachFile",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Filter1_mask",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Filter1_mask').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "CopyFiles",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": true,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"SourceContainer": {
+											"value": "@pipeline().parameters.SourceContainer",
+											"type": "Expression"
+										},
+										"SourceDirectory": {
+											"value": "@pipeline().parameters.SourceDirectory",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Ds_Fabric_CEFA",
+									"type": "DatasetReference",
+									"parameters": {
+										"sinkTableName": {
+											"value": "lnd.derm_ADF2",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Filter1_mask",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get_psv_Files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get_psv_Files').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@startswith(item().name, 'lnd.derm')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"SourceContainer": {
+				"type": "string",
+				"defaultValue": "csv1"
+			},
+			"SourceDirectory": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-06T10:32:02Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,16 @@
+{
+	"name": "Db_Cefa_Fabric",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Db_Cefa_Fabric",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "txevxqqrsppuve3evkv42zse3a-digsty2wgpxefoo4dkllf3znby.database.fabric.microsoft.com",
+			"database": "CEFA_DB-418f8dd3-4710-4a1e-b0dd-65bd3ce55c34",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SystemAssignedManagedIdentity"
+		}
+	}
+}

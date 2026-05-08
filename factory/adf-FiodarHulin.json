@@ -1,0 +1,65 @@
+{
+	"name": "adf-FiodarHulin",
+	"properties": {
+		"globalParameters": {
+			"IsDebugMode": {
+				"type": "bool",
+				"value": true
+			},
+			"User_Run": {
+				"type": "string",
+				"value": "Fiodar Hulin"
+			},
+			"gladf_prm_KV_URL": {
+				"type": "string",
+				"value": "@pipeline().globalParameters.gladf_Global_Config[pipeline().globalParameters.gladf_env].KV_URL"
+			},
+			"gladf_env": {
+				"type": "string",
+				"value": "DEV"
+			},
+			"gladf_Global_Config": {
+				"type": "object",
+				"value": {
+					"DEV": {
+						"KV_URL": "https://KeyVault-Fhulin-02.vault.azure.net/",
+						"SQL_Server": "ak-sql-server-test.database.windows.net",
+						"Storage_Account": "saccfiodarhulin",
+						"Storage_Suffix": ".dfs.core.windows.net"
+					},
+					"TEST": {
+						"KV_URL": "https://KeyVault-Fhulin-TEST.vault.azure.net/",
+						"SQL_Server": "ak-sql-server-test-staging.database.windows.net",
+						"Storage_Account": "saccfiodarhultest",
+						"Storage_Suffix": ".dfs.core.windows.net"
+					},
+					"PROD": {
+						"KV_URL": "https://KeyVault-PROD.vault.azure.net/",
+						"SQL_Server": "prod-sql-server.database.windows.net",
+						"Storage_Account": "saccfiodarhulinprod",
+						"Storage_Suffix": ".dfs.core.windows.net"
+					}
+				}
+			}
+		},
+		"globalConfigurations": {
+			"mountedConfiguration": [
+				{
+					"workspaceId": "e3290d1a-3356-42ee-b9dc-1a96b2ef2d0e",
+					"artifactId": "8d3a474f-7155-4ddb-81f2-5e6137f3c14e"
+				}
+			],
+			"PipelineBillingEnabled": "true"
+		},
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8aaf6a96-1f54-4784-9fb4-a52b7b6f1fb2",
+		"tenantId": "c25bc99d-9311-4adf-9364-aaabcd6644d8"
+	}
+}
