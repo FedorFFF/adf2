@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-FiodarHulin"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"Az_db_test_properties_typeProperties_server": {
+			"value": "de-fiodarhulin-sql.database.windows.net"
+		},
+		"Az_db_test_properties_typeProperties_database": {
+			"value": "db-test"
+		},
+		"Az_db_test_admin_properties_typeProperties_server": {
+			"value": "de-fiodarhulin-sql.database.windows.net"
+		},
+		"Az_db_test_admin_properties_typeProperties_database": {
+			"value": "db-test"
+		},
+		"Az_db_test_admin_properties_typeProperties_userName": {
+			"value": "fadmin"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://saccfiodarhulin.dfs.core.windows.net/"
+		},
+		"AzureKeyVault_LS_01_properties_typeProperties_baseUrl": {
+			"value": "@{linkedService().prm_KV_URL}"
+		},
+		"Db_Cefa_Fabric_properties_typeProperties_server": {
+			"value": "txevxqqrsppuve3evkv42zse3a-digsty2wgpxefoo4dkllf3znby.database.fabric.microsoft.com"
+		},
+		"Db_Cefa_Fabric_properties_typeProperties_database": {
+			"value": "CEFA_DB-418f8dd3-4710-4a1e-b0dd-65bd3ce55c34"
+		},
+		"default_properties_IsDebugMode_value": {
+			"value": true
+		},
+		"default_properties_User_Run_value": {
+			"value": "Fiodar Hulin"
+		},
+		"default_properties_gladf_prm_KV_URL_value": {
+			"value": "@pipeline().globalParameters.gladf_Global_Config[pipeline().globalParameters.gladf_env].KV_URL"
+		},
+		"default_properties_gladf_env_value": {
+			"value": "DEV"
+		},
+		"default_properties_gladf_Global_Config_value": {
+			"value": {
+				"DEV": {
+					"KV_URL": "https://KeyVault-Fhulin-02.vault.azure.net/",
+					"SQL_Server": "ak-sql-server-test.database.windows.net",
+					"Storage_Account": "saccfiodarhulin",
+					"Storage_Suffix": ".dfs.core.windows.net"
+				},
+				"TEST": {
+					"KV_URL": "https://KeyVault-Fhulin-TEST.vault.azure.net/",
+					"SQL_Server": "ak-sql-server-test-staging.database.windows.net",
+					"Storage_Account": "saccfiodarhultest",
+					"Storage_Suffix": ".dfs.core.windows.net"
+				},
+				"PROD": {
+					"KV_URL": "https://KeyVault-PROD.vault.azure.net/",
+					"SQL_Server": "prod-sql-server.database.windows.net",
+					"Storage_Account": "saccfiodarhulinprod",
+					"Storage_Suffix": ".dfs.core.windows.net"
+				}
+			}
+		}
+	}
+}

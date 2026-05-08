@@ -1,0 +1,186 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-FiodarHulin"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"Az_db_test_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "de-fiodarhulin-sql.database.windows.net"
+		},
+		"Az_db_test_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "db-test"
+		},
+		"Az_db_test_admin_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "de-fiodarhulin-sql.database.windows.net"
+		},
+		"Az_db_test_admin_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "db-test"
+		},
+		"Az_db_test_admin_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "fadmin"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://saccfiodarhulin.dfs.core.windows.net/"
+		},
+		"AzureKeyVault_LS_01_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "@{linkedService().prm_KV_URL}"
+		},
+		"Db_Cefa_Fabric_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "txevxqqrsppuve3evkv42zse3a-digsty2wgpxefoo4dkllf3znby.database.fabric.microsoft.com"
+		},
+		"Db_Cefa_Fabric_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "CEFA_DB-418f8dd3-4710-4a1e-b0dd-65bd3ce55c34"
+		},
+		"default_properties_IsDebugMode_value": {
+			"type": "bool",
+			"defaultValue": true
+		},
+		"default_properties_User_Run_value": {
+			"type": "string",
+			"defaultValue": "Fiodar Hulin"
+		},
+		"default_properties_gladf_prm_KV_URL_value": {
+			"type": "string",
+			"defaultValue": "@pipeline().globalParameters.gladf_Global_Config[pipeline().globalParameters.gladf_env].KV_URL"
+		},
+		"default_properties_gladf_env_value": {
+			"type": "string",
+			"defaultValue": "DEV"
+		},
+		"default_properties_gladf_Global_Config_value": {
+			"type": "object",
+			"defaultValue": {
+				"DEV": {
+					"KV_URL": "https://KeyVault-Fhulin-02.vault.azure.net/",
+					"SQL_Server": "ak-sql-server-test.database.windows.net",
+					"Storage_Account": "saccfiodarhulin",
+					"Storage_Suffix": ".dfs.core.windows.net"
+				},
+				"TEST": {
+					"KV_URL": "https://KeyVault-Fhulin-TEST.vault.azure.net/",
+					"SQL_Server": "ak-sql-server-test-staging.database.windows.net",
+					"Storage_Account": "saccfiodarhultest",
+					"Storage_Suffix": ".dfs.core.windows.net"
+				},
+				"PROD": {
+					"KV_URL": "https://KeyVault-PROD.vault.azure.net/",
+					"SQL_Server": "prod-sql-server.database.windows.net",
+					"Storage_Account": "saccfiodarhulinprod",
+					"Storage_Suffix": ".dfs.core.windows.net"
+				}
+			}
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-FiodarHulin_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"default_properties_IsDebugMode_value": {
+						"value": "[parameters('default_properties_IsDebugMode_value')]"
+					},
+					"default_properties_User_Run_value": {
+						"value": "[parameters('default_properties_User_Run_value')]"
+					},
+					"default_properties_gladf_prm_KV_URL_value": {
+						"value": "[parameters('default_properties_gladf_prm_KV_URL_value')]"
+					},
+					"default_properties_gladf_env_value": {
+						"value": "[parameters('default_properties_gladf_env_value')]"
+					},
+					"default_properties_gladf_Global_Config_value": {
+						"value": "[parameters('default_properties_gladf_Global_Config_value')]"
+					},
+					"Az_db_test_properties_typeProperties_server": {
+						"value": "[parameters('Az_db_test_properties_typeProperties_server')]"
+					},
+					"Az_db_test_properties_typeProperties_database": {
+						"value": "[parameters('Az_db_test_properties_typeProperties_database')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureKeyVault_LS_01_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault_LS_01_properties_typeProperties_baseUrl')]"
+					},
+					"Db_Cefa_Fabric_properties_typeProperties_server": {
+						"value": "[parameters('Db_Cefa_Fabric_properties_typeProperties_server')]"
+					},
+					"Db_Cefa_Fabric_properties_typeProperties_database": {
+						"value": "[parameters('Db_Cefa_Fabric_properties_typeProperties_database')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "adf-FiodarHulin_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Az_db_test_admin_properties_typeProperties_server": {
+						"value": "[parameters('Az_db_test_admin_properties_typeProperties_server')]"
+					},
+					"Az_db_test_admin_properties_typeProperties_database": {
+						"value": "[parameters('Az_db_test_admin_properties_typeProperties_database')]"
+					},
+					"Az_db_test_admin_properties_typeProperties_userName": {
+						"value": "[parameters('Az_db_test_admin_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-FiodarHulin_ArmTemplate_0')]"
+			]
+		}
+	]
+}
