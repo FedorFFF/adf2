@@ -79,8 +79,7 @@
 				"defaultValue": "lnd"
 			},
 			"pDirectory": {
-				"type": "string",
-				"defaultValue": "''"
+				"type": "string"
 			},
 			"pContainer": {
 				"type": "string",
