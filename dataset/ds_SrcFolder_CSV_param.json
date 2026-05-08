@@ -10,7 +10,8 @@
 				"type": "string"
 			},
 			"pDirectory": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "''"
 			},
 			"pContainer": {
 				"type": "string",
