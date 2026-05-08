@@ -2,7 +2,7 @@
 	"name": "Az_db_test",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"description": "db_test",
+		"description": "db_test 01",
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
