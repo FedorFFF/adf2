@@ -72,10 +72,12 @@
 				"type": "String"
 			},
 			"sinkTableName": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "zz00"
 			},
 			"sinkSchema": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "lnd"
 			}
 		},
 		"annotations": [],
