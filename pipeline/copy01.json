@@ -48,6 +48,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"pFileName": "@{pipeline().parameters.input_psv_file}",
+							"pDirectory": "''",
 							"pContainer": "csv"
 						}
 					}
