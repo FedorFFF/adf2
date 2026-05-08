@@ -8,6 +8,13 @@
 		"parameters": {
 			"pFileName": {
 				"type": "string"
+			},
+			"pDirectory": {
+				"type": "string"
+			},
+			"pContainer": {
+				"type": "string",
+				"defaultValue": "csv"
 			}
 		},
 		"annotations": [],
@@ -15,7 +22,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "csv1"
+				"fileName": "@dataset().pFileName",
+				"folderPath": "@dataset().pDirectory",
+				"fileSystem": "@dataset().pContainer"
 			},
 			"columnDelimiter": "|",
 			"escapeChar": "\\",
