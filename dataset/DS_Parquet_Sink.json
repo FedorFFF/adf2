@@ -1,0 +1,32 @@
+{
+	"name": "DS_Parquet_Sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"prm_Container": {
+				"type": "string"
+			},
+			"prm_Directory": {
+				"type": "string"
+			},
+			"prm_FileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "@dataset().prm_FileName",
+				"folderPath": "@dataset().prm_Directory",
+				"container": "@dataset().prm_Container"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
