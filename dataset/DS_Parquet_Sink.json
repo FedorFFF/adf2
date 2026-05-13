@@ -8,7 +8,8 @@
 		},
 		"parameters": {
 			"prm_Container": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dummy"
 			},
 			"prm_Directory": {
 				"type": "string"
