@@ -25,7 +25,10 @@
 				"type": "AzureBlobStorageLocation",
 				"fileName": "@dataset().prm_FileName",
 				"folderPath": "@dataset().prm_Directory",
-				"container": "@dataset().prm_Container"
+				"container": {
+					"value": "@dataset().prm_Container",
+					"type": "Expression"
+				}
 			},
 			"compressionCodec": "snappy"
 		},
