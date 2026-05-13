@@ -1,6 +1,7 @@
 {
 	"name": "DS_Parquet_Sink",
 	"properties": {
+		"description": "Parquet Sink",
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
