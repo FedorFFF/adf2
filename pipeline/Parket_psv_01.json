@@ -80,12 +80,15 @@
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
 									}
 								},
 								"sink": {
 									"type": "ParquetSink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
+										"type": "AzureBlobStorageWriteSettings"
 									},
 									"formatSettings": {
 										"type": "ParquetWriteSettings"
