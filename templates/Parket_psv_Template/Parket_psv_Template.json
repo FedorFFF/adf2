@@ -1,0 +1,286 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name"
+		},
+		"AzureDataLakeStorage1": {
+			"type": "string"
+		},
+		"AzureBlobStorage1": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Parket_psv_02')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get_All_Files",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_Src_PSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"prm_Container": {
+										"value": "@pipeline().parameters.prm_SourceContainer",
+										"type": "Expression"
+									},
+									"prm_Directory": {
+										"value": "@pipeline().parameters.prm_SourceDirectory",
+										"type": "Expression"
+									},
+									"prm_FileName": {
+										"value": " ",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": false,
+								"enablePartitionDiscovery": false
+							}
+						}
+					},
+					{
+						"name": "Filter_Only_Files",
+						"type": "Filter",
+						"dependsOn": [
+							{
+								"activity": "Get_All_Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get_All_Files').output.childItems",
+								"type": "Expression"
+							},
+							"condition": {
+								"value": "@equals(item().type, 'File')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "ForEach_File",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Filter_Only_Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Filter_Only_Files').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy_To_Parquet",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": false
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_Src_PSV",
+											"type": "DatasetReference",
+											"parameters": {
+												"prm_Container": {
+													"value": "@pipeline().parameters.prm_SourceContainer",
+													"type": "Expression"
+												},
+												"prm_Directory": {
+													"value": "@pipeline().parameters.prm_SourceDirectory",
+													"type": "Expression"
+												},
+												"prm_FileName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_Parquet_Sink",
+											"type": "DatasetReference",
+											"parameters": {
+												"prm_Container": {
+													"value": "@pipeline().parameters.prm_SourceContainer",
+													"type": "Expression"
+												},
+												"prm_Directory": {
+													"value": "parket",
+													"type": "Expression"
+												},
+												"prm_FileName": {
+													"value": "@concat(replace(item().name, '.psv', ''), '.parquet')",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"parameters": {
+					"prm_SourceContainer": {
+						"type": "string",
+						"defaultValue": "psv2"
+					},
+					"prm_SourceDirectory": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Src_PSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Parquet_Sink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Src_PSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "[parameters('AzureDataLakeStorage1')]",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"prm_Container": {
+						"type": "string"
+					},
+					"prm_Directory": {
+						"type": "string"
+					},
+					"prm_FileName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().prm_FileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().prm_Directory",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().prm_Container",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Parquet_Sink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Parquet Sink",
+				"linkedServiceName": {
+					"referenceName": "[parameters('AzureBlobStorage1')]",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"prm_Container": {
+						"type": "string",
+						"defaultValue": "dummy"
+					},
+					"prm_Directory": {
+						"type": "string"
+					},
+					"prm_FileName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "@dataset().prm_FileName",
+						"folderPath": "@dataset().prm_Directory",
+						"container": {
+							"value": "@dataset().prm_Container",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		}
+	]
+}
