@@ -1,8 +1,13 @@
 {
 	"name": "Az_db_test",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"description": "db_test 01 description",
+		"parameters": {
+			"DBName": {
+				"type": "string",
+				"defaultValue": "db-test"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
@@ -12,5 +17,6 @@
 			"trustServerCertificate": false,
 			"authenticationType": "SystemAssignedManagedIdentity"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
