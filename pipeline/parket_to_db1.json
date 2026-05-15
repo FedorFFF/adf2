@@ -36,7 +36,7 @@
 						"type": "TabularTranslator",
 						"typeConversion": true,
 						"typeConversionSettings": {
-							"allowDataTruncation": true,
+							"allowDataTruncation": false,
 							"treatBooleanAsNumber": false
 						}
 					}
@@ -69,7 +69,8 @@
 							"sinkTableName": {
 								"value": "@pipeline().parameters.prm_target_table",
 								"type": "Expression"
-							}
+							},
+							"sinkSchema": "dbo"
 						}
 					}
 				]
