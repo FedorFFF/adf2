@@ -47,15 +47,15 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"prm_Container": {
-								"value": "@pipeline().parameters.container_name",
+								"value": "@pipeline().parameters.prm_container_name",
 								"type": "Expression"
 							},
 							"prm_Directory": {
-								"value": "",
-								"type": "String"
+								"value": "@pipeline().parameters.prm_directory_name",
+								"type": "Expression"
 							},
 							"prm_FileName": {
-								"value": "@pipeline().parameters.file_name",
+								"value": "@pipeline().parameters.prm_file_name",
 								"type": "Expression"
 							}
 						}
@@ -67,7 +67,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"sinkTableName": {
-								"value": "@pipeline().parameters.target_table",
+								"value": "@pipeline().parameters.prm_target_table",
 								"type": "Expression"
 							}
 						}
@@ -76,15 +76,18 @@
 			}
 		],
 		"parameters": {
-			"container_name": {
+			"prm_container_name": {
 				"type": "string",
 				"defaultValue": "db1-exp"
 			},
-			"file_name": {
+			"prm_directory_name": {
+				"type": "string"
+			},
+			"prm_file_name": {
 				"type": "string",
 				"defaultValue": "parktest.parquet"
 			},
-			"target_table": {
+			"prm_target_table": {
 				"type": "string",
 				"defaultValue": "parktest2"
 			}
