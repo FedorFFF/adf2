@@ -90,7 +90,7 @@
 			},
 			"prm_target_table": {
 				"type": "string",
-				"defaultValue": "loc_parktest.parquet"
+				"defaultValue": "fromloc_ADF_parktest"
 			}
 		},
 		"annotations": []
