@@ -217,18 +217,6 @@
 							},
 							{
 								"source": {
-									"name": "t_only",
-									"type": "DateTime",
-									"physicalType": "INT96"
-								},
-								"sink": {
-									"name": "t_only",
-									"type": "TimeSpan",
-									"physicalType": "time"
-								}
-							},
-							{
-								"source": {
 									"name": "nv100",
 									"type": "String",
 									"physicalType": "UTF8"
