@@ -86,11 +86,11 @@
 			},
 			"prm_file_name": {
 				"type": "string",
-				"defaultValue": "parktest.parquet"
+				"defaultValue": "loc_parktest.parquet"
 			},
 			"prm_target_table": {
 				"type": "string",
-				"defaultValue": "parktest2"
+				"defaultValue": "loc_parktest.parquet"
 			}
 		},
 		"annotations": []
