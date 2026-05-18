@@ -14,10 +14,25 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.prm_container_name}/@{pipeline().parameters.prm_directory_name}/@{pipeline().parameters.prm_file_name}"
+					},
+					{
+						"name": "Destination",
+						"value": "@{'dbo'}.@{pipeline().parameters.prm_target_table}"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "ParquetSource",
+						"additionalColumns": [
+							{
+								"name": "t_only2",
+								"value": ""
+							}
+						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
@@ -198,6 +213,18 @@
 									"name": "d_only",
 									"type": "Date",
 									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "t_only",
+									"type": "DateTime",
+									"physicalType": "INT96"
+								},
+								"sink": {
+									"name": "t_only",
+									"type": "TimeSpan",
+									"physicalType": "time"
 								}
 							},
 							{
@@ -405,11 +432,11 @@
 			},
 			"prm_file_name": {
 				"type": "string",
-				"defaultValue": "parktest.parquet"
+				"defaultValue": "loc_parktest.parquet"
 			},
 			"prm_target_table": {
 				"type": "string",
-				"defaultValue": "parktest2"
+				"defaultValue": "fromloc_ADF_parktest"
 			}
 		},
 		"annotations": []
