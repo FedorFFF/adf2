@@ -1,0 +1,22 @@
+{
+	"name": "Sql_local_aa1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "localhost",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": ".",
+			"database": "aa1",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "Windows",
+			"userName": "leverx\\fiodar.hulin",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkNjRjOTQ5Yi1lMDdhLTRkZTYtYmU4ZC0yMjlmMjE0Y2NhZGMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IR-localhost",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
