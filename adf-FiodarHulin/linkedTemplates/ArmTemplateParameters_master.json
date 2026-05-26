@@ -5,14 +5,23 @@
 		"factoryName": {
 			"value": "adf-FiodarHulin"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"Sql_local_aa1_password": {
+			"value": ""
+		},
+		"Sql_local_param_password": {
 			"value": ""
 		},
 		"Az_db_test_properties_typeProperties_server": {
 			"value": "de-fiodarhulin-sql.database.windows.net"
 		},
 		"Az_db_test_properties_typeProperties_database": {
-			"value": "db-test"
+			"value": "@linkedService().DBName"
 		},
 		"Az_db_test_admin_properties_typeProperties_server": {
 			"value": "de-fiodarhulin-sql.database.windows.net"
@@ -34,6 +43,24 @@
 		},
 		"Db_Cefa_Fabric_properties_typeProperties_database": {
 			"value": "CEFA_DB-418f8dd3-4710-4a1e-b0dd-65bd3ce55c34"
+		},
+		"Sql_local_aa1_properties_typeProperties_server": {
+			"value": "."
+		},
+		"Sql_local_aa1_properties_typeProperties_database": {
+			"value": "aa1"
+		},
+		"Sql_local_aa1_properties_typeProperties_userName": {
+			"value": "leverx\\fiodar.hulin"
+		},
+		"Sql_local_param_properties_typeProperties_server": {
+			"value": "."
+		},
+		"Sql_local_param_properties_typeProperties_database": {
+			"value": "@{linkedService().DB_Name}"
+		},
+		"Sql_local_param_properties_typeProperties_userName": {
+			"value": "sa"
 		},
 		"default_properties_IsDebugMode_value": {
 			"value": true

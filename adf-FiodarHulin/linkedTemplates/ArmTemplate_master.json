@@ -7,9 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-FiodarHulin"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"AzureDataLakeStorage1_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"Sql_local_aa1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sql_local_aa1'"
+		},
+		"Sql_local_param_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sql_local_param'"
 		},
 		"Az_db_test_properties_typeProperties_server": {
 			"type": "string",
@@ -17,7 +29,7 @@
 		},
 		"Az_db_test_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "db-test"
+			"defaultValue": "@linkedService().DBName"
 		},
 		"Az_db_test_admin_properties_typeProperties_server": {
 			"type": "string",
@@ -46,6 +58,30 @@
 		"Db_Cefa_Fabric_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "CEFA_DB-418f8dd3-4710-4a1e-b0dd-65bd3ce55c34"
+		},
+		"Sql_local_aa1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "."
+		},
+		"Sql_local_aa1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "aa1"
+		},
+		"Sql_local_aa1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "leverx\\fiodar.hulin"
+		},
+		"Sql_local_param_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "."
+		},
+		"Sql_local_param_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "@{linkedService().DB_Name}"
+		},
+		"Sql_local_param_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sa"
 		},
 		"default_properties_IsDebugMode_value": {
 			"type": "bool",
@@ -113,6 +149,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
@@ -167,6 +206,12 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"Sql_local_aa1_password": {
+						"value": "[parameters('Sql_local_aa1_password')]"
+					},
+					"Sql_local_param_password": {
+						"value": "[parameters('Sql_local_param_password')]"
+					},
 					"Az_db_test_admin_properties_typeProperties_server": {
 						"value": "[parameters('Az_db_test_admin_properties_typeProperties_server')]"
 					},
@@ -175,11 +220,49 @@
 					},
 					"Az_db_test_admin_properties_typeProperties_userName": {
 						"value": "[parameters('Az_db_test_admin_properties_typeProperties_userName')]"
+					},
+					"Sql_local_aa1_properties_typeProperties_server": {
+						"value": "[parameters('Sql_local_aa1_properties_typeProperties_server')]"
+					},
+					"Sql_local_aa1_properties_typeProperties_database": {
+						"value": "[parameters('Sql_local_aa1_properties_typeProperties_database')]"
+					},
+					"Sql_local_aa1_properties_typeProperties_userName": {
+						"value": "[parameters('Sql_local_aa1_properties_typeProperties_userName')]"
+					},
+					"Sql_local_param_properties_typeProperties_server": {
+						"value": "[parameters('Sql_local_param_properties_typeProperties_server')]"
+					},
+					"Sql_local_param_properties_typeProperties_database": {
+						"value": "[parameters('Sql_local_param_properties_typeProperties_database')]"
+					},
+					"Sql_local_param_properties_typeProperties_userName": {
+						"value": "[parameters('Sql_local_param_properties_typeProperties_userName')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'adf-FiodarHulin_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adf-FiodarHulin_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-FiodarHulin_ArmTemplate_1')]"
 			]
 		}
 	]
