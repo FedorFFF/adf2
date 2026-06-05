@@ -710,7 +710,7 @@
 					{
 						"TargetEntities": [
 							{
-								"name": "dbo.ttt1",
+								"name": "dbo.tt1_replica01",
 								"properties": {
 									"schema": [],
 									"dslConnectorProperties": [
@@ -720,7 +720,11 @@
 										},
 										{
 											"name": "tableName",
-											"value": "ttt1"
+											"value": "tt1_replica01"
+										},
+										{
+											"name": "defaultToUpsert",
+											"value": false
 										}
 									]
 								}
@@ -737,22 +741,6 @@
 										{
 											"name": "tableName",
 											"value": "Customer"
-										}
-									]
-								}
-							},
-							{
-								"name": "data.Date",
-								"properties": {
-									"schema": [],
-									"dslConnectorProperties": [
-										{
-											"name": "schemaName",
-											"value": "data"
-										},
-										{
-											"name": "tableName",
-											"value": "Date"
 										}
 									]
 								}
@@ -830,18 +818,7 @@
 								}
 							},
 							{
-								"targetEntityName": "data.Date",
-								"sourceEntityName": "data.Date",
-								"sourceConnectionReference": {
-									"connectionName": "Az_db_test",
-									"type": "linkedservicetype"
-								},
-								"attributeMappingInfo": {
-									"attributeMappings": []
-								}
-							},
-							{
-								"targetEntityName": "dbo.ttt1",
+								"targetEntityName": "dbo.tt1_replica01",
 								"sourceEntityName": "dbo.ttt1",
 								"sourceConnectionReference": {
 									"connectionName": "Az_db_test",
@@ -862,6 +839,7 @@
 					},
 					"mode": "Microbatch"
 				},
+				"status": "Stopped",
 				"allowVNetOverride": false
 			},
 			"dependsOn": []
