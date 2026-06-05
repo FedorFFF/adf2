@@ -122,54 +122,6 @@
 			{
 				"TargetEntities": [
 					{
-						"name": "dbo.ttt1",
-						"properties": {
-							"schema": [],
-							"dslConnectorProperties": [
-								{
-									"name": "schemaName",
-									"value": "dbo"
-								},
-								{
-									"name": "tableName",
-									"value": "ttt1"
-								}
-							]
-						}
-					},
-					{
-						"name": "data.Customer",
-						"properties": {
-							"schema": [],
-							"dslConnectorProperties": [
-								{
-									"name": "schemaName",
-									"value": "data"
-								},
-								{
-									"name": "tableName",
-									"value": "Customer"
-								}
-							]
-						}
-					},
-					{
-						"name": "data.Date",
-						"properties": {
-							"schema": [],
-							"dslConnectorProperties": [
-								{
-									"name": "schemaName",
-									"value": "data"
-								},
-								{
-									"name": "tableName",
-									"value": "Date"
-								}
-							]
-						}
-					},
-					{
 						"name": "dbo.tt1_replica01",
 						"properties": {
 							"schema": [],
@@ -251,19 +203,8 @@
 				},
 				"DataMapperMappings": [
 					{
-						"targetEntityName": "data.Customer",
-						"sourceEntityName": "data.Customer",
-						"sourceConnectionReference": {
-							"connectionName": "Az_db_test",
-							"type": "linkedservicetype"
-						},
-						"attributeMappingInfo": {
-							"attributeMappings": []
-						}
-					},
-					{
-						"targetEntityName": "data.Date",
-						"sourceEntityName": "data.Date",
+						"targetEntityName": "dbo.tt1_replica01",
+						"sourceEntityName": "dbo.ttt1",
 						"sourceConnectionReference": {
 							"connectionName": "Az_db_test",
 							"type": "linkedservicetype"
