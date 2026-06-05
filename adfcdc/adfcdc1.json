@@ -1,0 +1,279 @@
+{
+	"name": "adfcdc1",
+	"properties": {
+		"SourceConnectionsInfo": [
+			{
+				"SourceEntities": [
+					{
+						"name": "dbo.ttt1",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "ttt1"
+								},
+								{
+									"name": "enableCdc",
+									"value": true
+								},
+								{
+									"name": "waterMarkColumn",
+									"value": "dt_2"
+								}
+							]
+						}
+					},
+					{
+						"name": "data.Customer",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "data"
+								},
+								{
+									"name": "tableName",
+									"value": "Customer"
+								},
+								{
+									"name": "enableCdc",
+									"value": true
+								},
+								{
+									"name": "waterMarkColumn",
+									"value": "StartDT"
+								}
+							]
+						}
+					},
+					{
+						"name": "data.Date",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "data"
+								},
+								{
+									"name": "tableName",
+									"value": "Date"
+								},
+								{
+									"name": "enableCdc",
+									"value": true
+								},
+								{
+									"name": "waterMarkColumn",
+									"value": "Date"
+								}
+							]
+						}
+					}
+				],
+				"Connection": {
+					"linkedService": {
+						"referenceName": "Az_db_test",
+						"type": "LinkedServiceReference"
+					},
+					"linkedServiceType": "AzureSqlDatabase",
+					"type": "linkedservicetype",
+					"isInlineDataset": true,
+					"commonDslConnectorProperties": [
+						{
+							"name": "allowSchemaDrift",
+							"value": true
+						},
+						{
+							"name": "inferDriftedColumnTypes",
+							"value": true
+						},
+						{
+							"name": "format",
+							"value": "table"
+						},
+						{
+							"name": "store",
+							"value": "sqlserver"
+						},
+						{
+							"name": "databaseType",
+							"value": "databaseType"
+						},
+						{
+							"name": "database",
+							"value": "database"
+						},
+						{
+							"name": "skipInitialLoad",
+							"value": true
+						}
+					]
+				}
+			}
+		],
+		"TargetConnectionsInfo": [
+			{
+				"TargetEntities": [
+					{
+						"name": "dbo.ttt1",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "ttt1"
+								}
+							]
+						}
+					},
+					{
+						"name": "data.Customer",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "data"
+								},
+								{
+									"name": "tableName",
+									"value": "Customer"
+								}
+							]
+						}
+					},
+					{
+						"name": "data.Date",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "data"
+								},
+								{
+									"name": "tableName",
+									"value": "Date"
+								}
+							]
+						}
+					}
+				],
+				"Connection": {
+					"linkedService": {
+						"referenceName": "Az_db_test",
+						"type": "LinkedServiceReference"
+					},
+					"linkedServiceType": "AzureSqlDatabase",
+					"type": "linkedservicetype",
+					"isInlineDataset": true,
+					"commonDslConnectorProperties": [
+						{
+							"name": "allowSchemaDrift",
+							"value": true
+						},
+						{
+							"name": "inferDriftedColumnTypes",
+							"value": true
+						},
+						{
+							"name": "format",
+							"value": "table"
+						},
+						{
+							"name": "store",
+							"value": "sqlserver"
+						},
+						{
+							"name": "databaseType",
+							"value": "databaseType"
+						},
+						{
+							"name": "database",
+							"value": "database"
+						},
+						{
+							"name": "deletable",
+							"value": false
+						},
+						{
+							"name": "insertable",
+							"value": true
+						},
+						{
+							"name": "updateable",
+							"value": false
+						},
+						{
+							"name": "upsertable",
+							"value": false
+						},
+						{
+							"name": "skipDuplicateMapInputs",
+							"value": true
+						},
+						{
+							"name": "skipDuplicateMapOutputs",
+							"value": true
+						}
+					]
+				},
+				"DataMapperMappings": [
+					{
+						"targetEntityName": "data.Customer",
+						"sourceEntityName": "data.Customer",
+						"sourceConnectionReference": {
+							"connectionName": "Az_db_test",
+							"type": "linkedservicetype"
+						},
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					},
+					{
+						"targetEntityName": "data.Date",
+						"sourceEntityName": "data.Date",
+						"sourceConnectionReference": {
+							"connectionName": "Az_db_test",
+							"type": "linkedservicetype"
+						},
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					},
+					{
+						"targetEntityName": "dbo.ttt1",
+						"sourceEntityName": "dbo.ttt1",
+						"sourceConnectionReference": {
+							"connectionName": "Az_db_test",
+							"type": "linkedservicetype"
+						},
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					}
+				],
+				"Relationships": []
+			}
+		],
+		"Policy": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15
+			},
+			"mode": "Microbatch"
+		},
+		"allowVNetOverride": false
+	}
+}
