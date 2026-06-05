@@ -251,16 +251,6 @@
 						"attributeMappingInfo": {
 							"attributeMappings": []
 						}
-					},
-					{
-						"sourceEntityName": "dbo.ttt1",
-						"sourceConnectionReference": {
-							"connectionName": "Az_db_test",
-							"type": "linkedservicetype"
-						},
-						"attributeMappingInfo": {
-							"attributeMappings": []
-						}
 					}
 				],
 				"Relationships": []
