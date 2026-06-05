@@ -156,6 +156,38 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "dbo.parket_heap",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "parket_heap"
+								}
+							]
+						}
+					},
+					{
+						"name": "dbo.Park00",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "Park00"
+								}
+							]
+						}
 					}
 				],
 				"Connection": {
@@ -225,6 +257,18 @@
 							"connectionName": "Az_db_test",
 							"type": "linkedservicetype"
 						},
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					},
+					{
+						"targetEntityName": "dbo.Park00",
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					},
+					{
+						"targetEntityName": "dbo.parket_heap",
 						"attributeMappingInfo": {
 							"attributeMappings": []
 						}
