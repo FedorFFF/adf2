@@ -168,6 +168,26 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "dbo.tt1_replica01",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "tt1_replica01"
+								},
+								{
+									"name": "defaultToUpsert",
+									"value": false
+								}
+							]
+						}
 					}
 				],
 				"Connection": {
