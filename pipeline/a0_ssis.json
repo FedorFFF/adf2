@@ -19,10 +19,6 @@
 						"packagePath": "\\\\saccfiodarhulin.file.core.windows.net\\fileshare1\\Az_Loc_cust_pass.dtsx",
 						"type": "File",
 						"typeProperties": {
-							"packagePassword": {
-								"type": "SecureString",
-								"value": "**********"
-							},
 							"accessCredential": {
 								"domain": "Azure",
 								"userName": "saccfiodarhulin",
@@ -36,6 +32,18 @@
 					"connectVia": {
 						"referenceName": "SSIS-integrationRuntime",
 						"type": "IntegrationRuntimeReference"
+					},
+					"packageConnectionManagers": {
+						"Src_Azure_OLEDB": {
+							"Password": {
+								"value": "Fffffjjjjj124!"
+							}
+						},
+						"Trg_SQL2025": {
+							"Password": {
+								"value": "Fffffjjjjj124!"
+							}
+						}
 					}
 				}
 			}
