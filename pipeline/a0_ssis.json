@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute SSIS package1",
+				"name": "Exec_SSIS_01",
 				"type": "ExecuteSSISPackage",
 				"dependsOn": [],
 				"policy": {
@@ -19,6 +19,10 @@
 						"packagePath": "\\\\saccfiodarhulin.file.core.windows.net\\fileshare1\\Az_Loc_cust_pass.dtsx",
 						"type": "File",
 						"typeProperties": {
+							"packagePassword": {
+								"type": "SecureString",
+								"value": "**********"
+							},
 							"accessCredential": {
 								"domain": "Azure",
 								"userName": "saccfiodarhulin",
