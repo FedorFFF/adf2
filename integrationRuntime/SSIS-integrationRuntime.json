@@ -1,0 +1,20 @@
+{
+	"name": "SSIS-integrationRuntime",
+	"properties": {
+		"type": "Managed",
+		"description": "SSIS-integrationRuntime",
+		"typeProperties": {
+			"computeProperties": {
+				"location": "East US",
+				"nodeSize": "Standard_D2_v3",
+				"numberOfNodes": 1,
+				"maxParallelExecutionsPerNode": 1
+			},
+			"ssisProperties": {
+				"edition": "Standard",
+				"runtimeVersion": "2017",
+				"licenseType": "LicenseIncluded"
+			}
+		}
+	}
+}
