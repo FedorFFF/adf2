@@ -262,18 +262,6 @@
 						}
 					},
 					{
-						"targetEntityName": "dbo.Park00",
-						"attributeMappingInfo": {
-							"attributeMappings": []
-						}
-					},
-					{
-						"targetEntityName": "dbo.parket_heap",
-						"attributeMappingInfo": {
-							"attributeMappings": []
-						}
-					},
-					{
 						"targetEntityName": "dbo.tt1_replica01",
 						"sourceEntityName": "dbo.ttt1",
 						"sourceConnectionReference": {
