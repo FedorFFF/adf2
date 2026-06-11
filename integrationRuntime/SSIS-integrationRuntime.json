@@ -13,7 +13,17 @@
 			"ssisProperties": {
 				"edition": "Standard",
 				"runtimeVersion": "2017",
-				"licenseType": "LicenseIncluded"
+				"licenseType": "LicenseIncluded",
+				"dataProxyProperties": {
+					"connectVia": {
+						"type": "IntegrationRuntimeReference",
+						"referenceName": "IR-localhost"
+					},
+					"stagingLinkedService": {
+						"type": "LinkedServiceReference",
+						"referenceName": "AzureBlobStorage1"
+					}
+				}
 			}
 		}
 	}
